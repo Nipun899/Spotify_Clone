@@ -9,6 +9,7 @@ const User = mongoose.Schema({
     type: String,
     required: false,
   },
+  // last name of user
   lastName: {
     type: String,
     required: false,
@@ -20,20 +21,20 @@ const User = mongoose.Schema({
   },
   likedSongs: {
     // we will change this to array later
-    type:String,
-    default:""
+    type: String,
+    default: "",
   },
-  likedPlaylist:{
+  likedPlaylist: {
     //we will change this to array later
     type: String,
-    default:""
+    default: "",
   },
-  subscribedArtist:{
+  subscribedArtist: {
     //we will change this to array later
     type: String,
-    default:""
-  }
+    default: "",
+  },
 });
 
-const userModel = mongoose.model('User',User)
-module.exports = userModel
+const userModel = mongoose.model("User", User);
+module.exports = userModel;
