@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Song = mongoose.Schema({
+ //this is the name of the playlist
   name: {
     type: String,
     required: true,
