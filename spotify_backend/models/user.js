@@ -14,6 +14,10 @@ const User = mongoose.Schema({
     type: String,
     required: false,
   },
+  email:{
+    type:String,
+    required: true,
+  },
   likedArtist: {
     // we will change this to array later
     type: String,
@@ -34,6 +38,7 @@ const User = mongoose.Schema({
     type: String,
     default: "",
   },
+  
 });
 
 const userModel = mongoose.model("User", User);

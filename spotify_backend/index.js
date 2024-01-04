@@ -1,11 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const passport = require("passport")
 require("dotenv").config();
+const authRoutes = require("./routes/auth")
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
 const User = require("./models/user")
 const app = express();
-const port = 3000;
+const port = 8080;
+app.use(express.json());
 //connecting our database to node package
 //mongoose.connect("<database ka url>",{<connections options and modifications>})
 mongoose
@@ -22,7 +25,7 @@ mongoose
     console.log("Connected to Mongo");
   })
   .catch((err) => {
-    console.log("error while connecting");
+    console.log(err);
   });
 //setting up passport-jwt for authentication
 
@@ -49,6 +52,7 @@ app.get("/", (req, res) => {
   // res contain all the data for response
   res.send("Hello World");
 });
+app.use("/auth", authRoutes)
 // now we want to tell the server to run on which port
 app.listen(port, () => {
   console.log("This server is running on port " + port);

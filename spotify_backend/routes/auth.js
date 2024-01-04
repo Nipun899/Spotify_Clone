@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const {getToken} = require("../utils/helpers")
 
 //this post route will help to register a new user
 router.post("/register", async (req, res) => {
@@ -16,11 +17,11 @@ router.post("/register", async (req, res) => {
   if (user) {
     return res
       .status(403)
-      .json({ error: "This user with this email already exists" });
+      .json({ error: "The user with this email already exists" });
   }
   //Step: 3 now if the user is not found  we will create a new user
   //Step: 3.1 we need to encrypt the password here by converting into hash.
-  const hashedPassword = bcrypt.hash(password, 20);
+  const hashedPassword = bcrypt.hash(password, 10);
   const newUserData = {
     username,
     firstName,
@@ -37,3 +38,4 @@ router.post("/register", async (req, res) => {
   delete returnToUser.password;
   return res.status(200).json(returnToUser);
 });
+module.exports= router;
