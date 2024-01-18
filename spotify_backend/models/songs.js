@@ -15,7 +15,7 @@ track:{
   artist: {
     // we will change this to array later
     type: mongoose.Types.ObjectId,
-    ref: User,
+    ref: "User",
   },
 });
 

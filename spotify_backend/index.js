@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport")
 require("dotenv").config();
-const authRoutes = require("./routes/auth")
+const authRoutes = require("./routes/auth.js")
+const songRoutes = require("./routes/song.js")
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
 const User = require("./models/user")
@@ -52,7 +53,8 @@ app.get("/", (req, res) => {
   // res contain all the data for response
   res.send("Hello World");
 });
-app.use("/auth", authRoutes)
+app.use("/auth", authRoutes);
+app.use("/song", songRoutes);
 // now we want to tell the server to run on which port
 app.listen(port, () => {
   console.log("This server is running on port " + port);
