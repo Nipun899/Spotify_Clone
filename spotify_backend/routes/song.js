@@ -15,12 +15,12 @@ router.post(
     if (!name || !thumbnail || !track) {
       return res.status(301).json("Insufficient Details to Create a Song");
     } else {
-      console.log("Not able to create a song");
+      console.log("Song Created");
     }
     const artist = req.user._id;
     const songDetails = { name, thumbnail, track, artist };
     const createdSong = await Song.create(songDetails);
-    return res.status(200).json(createdSong);
+    return res.status(200).json({data:createdSong});
   }
 );
 
@@ -38,10 +38,10 @@ router.get(
 );
 // We will create a get route that helps user to search all the songs of an Artist with artist id
 router.get(
-  "/get/artist",
+  "/get/artist/:artistId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    const { artistId } = req.body;
+    const { artistId } = req.params;
     //We can check if the artist id does not exist
     const artist = await User.find({ _id: artistId });
     if (!artist) {
@@ -54,10 +54,10 @@ router.get(
 // Get a route to find a song by Song name
 
 router.get(
-  "/get/songname",
+  "/get/songname/:songName",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    const { songName } = req.body;
+    const { songName } = req.params;
     const songs = await Song.find({ name: songName });
     return res.status(200).json({ data: songs });
   }

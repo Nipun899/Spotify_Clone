@@ -1,16 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const passport = require("passport")
+const passport = require("passport");
 require("dotenv").config();
-const authRoutes = require("./routes/auth.js")
-const songRoutes = require("./routes/song.js")
+const authRoutes = require("./routes/auth.js");
+const songRoutes = require("./routes/song.js");
+const playlistRoutes = require("./routes/playlist.js");
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
-const User = require("./models/user")
-const playlistRoutes =require("./models/playlist.js") 
+const User = require("./models/user");
 const app = express();
 const port = 8080;
 app.use(express.json());
+mongoose.set("debug", true);
+
 //connecting our database to node package
 //mongoose.connect("<database ka url>",{<connections options and modifications>})
 mongoose
@@ -27,7 +29,7 @@ mongoose
     console.log("Connected to Mongo");
   })
   .catch((err) => {
-    console.log(err);
+    console.log("unable to connect");
   });
 //setting up passport-jwt for authentication
 
@@ -56,7 +58,7 @@ app.get("/", (req, res) => {
 });
 app.use("/auth", authRoutes);
 app.use("/song", songRoutes);
-app.use("/playlist", playlistRoutes)
+app.use("/playlist", playlistRoutes);
 // now we want to tell the server to run on which port
 app.listen(port, () => {
   console.log("This server is running on port " + port);

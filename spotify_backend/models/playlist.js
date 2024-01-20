@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Song = mongoose.Schema({
+const Playlist = mongoose.Schema({
  //this is the name of the playlist
   name: {
     type: String,
@@ -30,5 +30,5 @@ const Song = mongoose.Schema({
   ],
 });
 
-const songModel = mongoose.model("Song", Song);
+const songModel = mongoose.model("playlist", Playlist);
 module.exports = songModel;

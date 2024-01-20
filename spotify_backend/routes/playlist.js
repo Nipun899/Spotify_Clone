@@ -8,7 +8,7 @@ const Song = require("../models/songs");
 router.post(
   "/create",
   passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
+   async (req, res) => {
     const currentUser = req.user;
     const { name, thumbnail, songs } = req.body;
     if (!name || !thumbnail || !songs) {
@@ -49,8 +49,8 @@ router.get(
 // Get all the playlist made by an artist
 router.get(
   "/get/artist/:artistId",
-  passport.authenticate("jwt"),
-  { session: false },
+  passport.authenticate("jwt",
+  { session: false }),
   async (req, res) => {
     const artistId = req.params.artistId;
     // We can check here if a given artist with given id exists ?
@@ -69,6 +69,7 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const currentUser = req.user;
+    const {playlistId, songId} = req.body
     //First check if the current user is in the owner of the playlist or any collaborator of the playlist
     const playlist = await Playlist.findOne({ _id: playlistId });
     if (!playlist) {

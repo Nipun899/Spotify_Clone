@@ -19,5 +19,5 @@ track:{
   },
 });
 
-const songModel = mongoose.model("Song", Song);
+const songModel = mongoose.model("song", Song);
 module.exports = songModel;
