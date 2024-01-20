@@ -7,6 +7,7 @@ const songRoutes = require("./routes/song.js")
 const JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;
 const User = require("./models/user")
+const playlistRoutes =require("./models/playlist.js") 
 const app = express();
 const port = 8080;
 app.use(express.json());
@@ -55,6 +56,7 @@ app.get("/", (req, res) => {
 });
 app.use("/auth", authRoutes);
 app.use("/song", songRoutes);
+app.use("/playlist", playlistRoutes)
 // now we want to tell the server to run on which port
 app.listen(port, () => {
   console.log("This server is running on port " + port);

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const Song = require("../models/songs");
+const User = require("../models/user");
 
 router.post(
   "/create",
@@ -35,5 +36,30 @@ router.get(
     return res.status(200).json({ data: songs });
   }
 );
+// We will create a get route that helps user to search all the songs of an Artist with artist id
+router.get(
+  "/get/artist",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { artistId } = req.body;
+    //We can check if the artist id does not exist
+    const artist = await User.find({ _id: artistId });
+    if (!artist) {
+      return res.status(301).json({ err: "Artist does not exist" });
+    }
+    const songs = await Song.find({ artist: artistId });
+    return res.status(200).json({ data: songs });
+  }
+);
+// Get a route to find a song by Song name
 
+router.get(
+  "/get/songname",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { songName } = req.body;
+    const songs = await Song.find({ name: songName });
+    return res.status(200).json({ data: songs });
+  }
+);
 module.exports = router;
