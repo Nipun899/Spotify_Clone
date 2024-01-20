@@ -11,7 +11,6 @@ const User = require("./models/user");
 const app = express();
 const port = 8080;
 app.use(express.json());
-mongoose.set("debug", true);
 
 //connecting our database to node package
 //mongoose.connect("<database ka url>",{<connections options and modifications>})
